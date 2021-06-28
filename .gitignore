@@ -1,0 +1,9 @@
+# Packages
+node_modules/
+yarn.lock
+
+# Miscellaneous
+.idea/
+
+# Smth very secret
+.env
