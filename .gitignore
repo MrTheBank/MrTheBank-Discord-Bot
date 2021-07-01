@@ -4,6 +4,7 @@ yarn.lock
 
 # Miscellaneous
 .idea/
+tests/
 
 # Smth very secret
 .env
