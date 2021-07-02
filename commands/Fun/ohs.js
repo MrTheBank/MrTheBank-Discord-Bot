@@ -1,6 +1,5 @@
 const { MessageAttachment, MessageEmbed } = require("discord.js");
 const Canvas = require('canvas');
-const fs = require('fs');
 const wc = require('wordcut');
 
 Canvas.registerFont('./fonts/Trirong.ttf', { family: 'Trirong' });
