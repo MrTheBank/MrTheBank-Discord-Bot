@@ -1,0 +1,59 @@
+const { MessageEmbed } = require("discord.js");
+
+exports.run = async (client, message, args) => {
+    const arg = args.join(' ');
+
+    const prefix = process.env.DISCORD_PREFIX;
+
+    if (!arg) {
+        return message.channel.send(
+            new MessageEmbed()
+                .setTitle('<a:mrthebank_question:860447108145741824> คำสั่งทั้งหมด')
+                .setColor('#00FFFF')
+                .setDescription('บอทนี้ยังเป็นบอทที่อยู่ระหว่างการพัฒนา หากพบเจอปัญหาของบอทนี้ สามารถติดต่อผู้พัฒนาบอทได้ที่ `MrTheBank#5265`')
+                .addFields(
+                    { name: ':information_source: ทั่วไป', value: '`'+prefix+'help general`', inline: true },
+                    { name: '<a:pepe_spin:860508557359317031> มีม', value: '`'+prefix+'help meme`', inline: true },
+                    { name: '<a:popcat:860509614629322783> สัตว์', value: '`'+prefix+'help animal`', inline: true },
+                )
+                .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
+                .setTimestamp()
+        );
+    }
+
+    if (arg === 'general') {
+        return message.channel.send(
+            new MessageEmbed()
+                .setTitle(':information_source: คำสั่งทั่วไป')
+                .setColor('#6C00FF')
+                .setDescription('\u200B\n' +
+                    '`'+prefix+'avatar <ชื่อ/Discord UID (ไม่จำเป็น)>` - แสดงรูปโปรไฟล์\n' +
+                    '`'+prefix+'invite` - แสดงลิงค์เชิญบอทเข้าเซิฟเวอร์\n' +
+                    '`'+prefix+'together <ชนิด>` - เปิดห้อง Discord Together\n')
+                .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
+                .setTimestamp()
+        );
+    } else if (arg === 'meme') {
+        return message.channel.send(
+            new MessageEmbed()
+                .setTitle('<a:pepe_spin:860508557359317031> คำสั่งมีม')
+                .setColor('#6C00FF')
+                .setDescription('\u200B\n' +
+                    '`'+prefix+'ohs <ข้อความที่ 1>|<ข้อความที่ 2>` - สร้างมีม Office Handshake\n' +
+                    '`'+prefix+'grml <ข้อความ>` - สร้างมีม กูรู้หมดแล้ว\n')
+                .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
+                .setTimestamp()
+        );
+    } else if (arg === 'animal') {
+        return message.channel.send(
+            new MessageEmbed()
+                .setTitle('<a:popcat:860509614629322783> คำสั่งสัตว์')
+                .setColor('#6C00FF')
+                .setDescription('\u200B\n' +
+                    '`'+prefix+'cat` - สุ่มรูปแมว\n' +
+                    '`'+prefix+'dog <สายพันธ์ุ (ไม่จำเป็น)>` - สุ่มรูปสุนัข\n')
+                .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
+                .setTimestamp()
+        );
+    }
+};
