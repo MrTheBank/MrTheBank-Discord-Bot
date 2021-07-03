@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
     }
 
     if (arg.length === 2) {
-        const canvas = Canvas.createCanvas(552, 499);
+        const canvas = Canvas.createCanvas(552, 484);
         const ctx = canvas.getContext('2d');
         Canvas.loadImage('./templates/office_handshake.jpg').then(async (i) => {
             ctx.drawImage(i, 0, 0, canvas.width, canvas.height);
