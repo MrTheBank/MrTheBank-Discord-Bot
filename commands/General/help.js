@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
     const arg = args.join(' ');
@@ -15,6 +15,7 @@ exports.run = async (client, message, args) => {
                     { name: ':information_source: ทั่วไป', value: '`'+prefix+'help general`', inline: true },
                     { name: '<a:pepe_spin:860508557359317031> มีม', value: '`'+prefix+'help meme`', inline: true },
                     { name: '<a:popcat:860509614629322783> สัตว์', value: '`'+prefix+'help animal`', inline: true },
+                    { name: '<a:gameboy:860522412121522216> Discord Together', value: '`'+prefix+'help together`', inline: true },
                 )
                 .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
                 .setTimestamp()
@@ -52,6 +53,20 @@ exports.run = async (client, message, args) => {
                 .setDescription('\u200B\n' +
                     '`'+prefix+'cat` - สุ่มรูปแมว\n' +
                     '`'+prefix+'dog <สายพันธ์ุ (ไม่จำเป็น)>` - สุ่มรูปสุนัข\n')
+                .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
+                .setTimestamp()
+        );
+    } else if (arg === 'together') {
+        return message.channel.send(
+            new MessageEmbed()
+                .setTitle('<a:gameboy:860522412121522216> คำสั่ง Discord Together')
+                .setColor('#6C00FF')
+                .setDescription('\u200B\n' +
+                    '`'+prefix+'together youtube` - เปิดห้อง YouTube\n' +
+                    '`'+prefix+'together poker` - เปิดห้อง Poker\n' +
+                    '`'+prefix+'together chess` - เปิดห้อง Chess\n' +
+                    '`'+prefix+'together betrayal` - เปิดห้อง Betrayal\n' +
+                    '`'+prefix+'together fishing` - เปิดห้อง Fishing\n')
                 .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
                 .setTimestamp()
         );

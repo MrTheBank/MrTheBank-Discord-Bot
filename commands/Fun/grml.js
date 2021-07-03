@@ -1,4 +1,4 @@
-const { MessageAttachment, MessageEmbed } = require("discord.js");
+const { MessageAttachment, MessageEmbed } = require('discord.js');
 const Canvas = require('canvas');
 
 Canvas.registerFont('./fonts/sukhumvitb.ttf', { family: 'Sukhumvit' });
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
     if (!arg) {
         return message.channel.send(
             new MessageEmbed()
-                .setColor("BLUE")
+                .setColor('BLUE')
                 .setTitle('(MEME) กูรู้หมดแล้ว')
                 .setImage('https://i.imgur.com/hOElsQR.png')
                 .setDescription('วิธีใช้ `'+process.env.DISCORD_PREFIX+'grml ข้อความ`')
@@ -43,7 +43,7 @@ exports.run = async (client, message, args) => {
             } else {
                 return message.channel.send(
                     new MessageEmbed()
-                        .setColor("RED")
+                        .setColor('RED')
                         .setTitle('รูปแบบคำสั่งผิดพลาด')
                         .setDescription('ข้อความยาวเกินไป')
                 );

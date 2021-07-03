@@ -1,4 +1,4 @@
-const { MessageAttachment, MessageEmbed } = require("discord.js");
+const { MessageAttachment, MessageEmbed } = require('discord.js');
 const Canvas = require('canvas');
 const wc = require('wordcut');
 
@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
     if (!arg.join()) {
         return message.channel.send(
             new MessageEmbed()
-                .setColor("BLUE")
+                .setColor('BLUE')
                 .setTitle('(MEME) Office Handshake')
                 .setImage('https://i.imgur.com/ZEutZEs.jpg')
                 .setDescription('วิธีใช้ `'+process.env.DISCORD_PREFIX+'ohs ข้อความที่ 1|ข้อความที่ 2`')
@@ -56,7 +56,7 @@ exports.run = async (client, message, args) => {
     } else {
         return message.channel.send(
             new MessageEmbed()
-                .setColor("RED")
+                .setColor('RED')
                 .setTitle('รูปแบบคำสั่งผิดพลาด')
                 .setDescription('วิธีใช้ `'+process.env.DISCORD_PREFIX+'ohs ข้อความที่ 1|ข้อความที่ 2`')
         );

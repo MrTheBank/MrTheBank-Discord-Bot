@@ -1,5 +1,5 @@
-const { MessageEmbed } = require("discord.js");
-const is_numeric = require("../../utils/is_numeric.js");
+const { MessageEmbed } = require('discord.js');
+const is_numeric = require('../../utils/is_numeric.js');
 
 exports.run = async (client, message, args) => {
     const arg = args.join(' ');
@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (!arg) {
         return message.channel.send(
             new MessageEmbed()
-                .setColor("GREEN")
+                .setColor('GREEN')
                 .setImage(message.author.displayAvatarURL({format:'png',size:512}))
                 .setDescription('รูปโปรไฟล์ของท่าน: [ลิงค์]('+message.author.displayAvatarURL({format:'png',size:512})+')')
         );
@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
         const name = message.mentions.users.first();
         return message.channel.send(
             new MessageEmbed()
-                .setColor("GREEN")
+                .setColor('GREEN')
                 .setImage(name.displayAvatarURL({format:'png',size:512}))
                 .setDescription('รูปโปรไฟล์ของ `'+name.tag+'`: [ลิงค์]('+name.displayAvatarURL({format:'png',size:512})+')')
         );
@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
         const info = message.guild.members.cache.find(user => user.user.id === arg);
         return message.channel.send(
             new MessageEmbed()
-                .setColor("GREEN")
+                .setColor('GREEN')
                 .setImage(info.user.displayAvatarURL({format:'png',size:512}))
                 .setDescription('รูปโปรไฟล์ของ `'+info.user.tag+'`: [ลิงค์]('+info.user.displayAvatarURL({format:'png',size:512})+')')
         );
@@ -46,14 +46,22 @@ exports.run = async (client, message, args) => {
         if (info) {
             return message.channel.send(
                 new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor('GREEN')
                     .setImage(info.user.displayAvatarURL({format:'png',size:512}))
                     .setDescription('รูปโปรไฟล์ของ `'+info.user.tag+'`: [ลิงค์]('+info.user.displayAvatarURL({format:'png',size:512})+')')
             );
         } else {
-            return message.channel.send('ไม่พบชื่อที่ท่านต้องการ');
+            return message.channel.send(
+                new MessageEmbed()
+                    .setColor('#E00000')
+                    .setDescription('ไม่พบชื่อที่ท่านต้องการ')
+            );
         }
     } else {
-        return message.channel.send('กรุณาพิมพ์อย่างน้อย 3 ตัว');
+        return message.channel.send(
+            new MessageEmbed()
+                .setColor('#E00000')
+                .setDescription('กรุณาพิมพ์อย่างน้อย 3 ตัว')
+        );
     }
 };

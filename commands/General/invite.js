@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message) => {
     await message.channel.send(
         new MessageEmbed()
-            .setAuthor("เชิญฉันเข้าเซิฟเวอร์", "https://img.icons8.com/ultraviolet/2x/email-open--v2.gif")
-            .setColor("RED")
-            .setDescription("https://mrthebank.maxnus.com/invite")
+            .setTitle('<a:email:860725729562329129> เชิญ MrTheBank เข้าเซิฟเวอร์')
+            .setColor('RED')
+            .setDescription('https://mrthebank.maxnus.com/invite')
     );
 };
