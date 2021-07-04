@@ -17,6 +17,7 @@
     "dotenv": "^10.0.0",
     "mysql": "^2.18.1",
     "promise-mysql": "^5.0.3",
+    "time-convert": "0.0.2",
     "wordcut": "^0.9.1"
   }
 }
