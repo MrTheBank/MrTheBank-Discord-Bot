@@ -29,6 +29,7 @@ exports.run = async (client, message, args) => {
                 .setColor('#6C00FF')
                 .setDescription('\u200B\n' +
                     '`'+prefix+'avatar <ชื่อ/Discord UID (ไม่จำเป็น)>` - แสดงรูปโปรไฟล์\n' +
+                    '`'+prefix+'botinfo` - แสดงข้อมูลของบอท\n' +
                     '`'+prefix+'discord` - แสดงลิงค์เข้า MrTheBank\'s Official Discord\n' +
                     '`'+prefix+'invite` - แสดงลิงค์เชิญบอทเข้าเซิฟเวอร์\n' +
                     '`'+prefix+'together <ชนิด>` - เปิดห้อง Discord Together\n')
