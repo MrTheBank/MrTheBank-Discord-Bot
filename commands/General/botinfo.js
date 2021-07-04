@@ -19,6 +19,6 @@ exports.run = async (client, message) => {
                 'จำนวนช่อง: `'+client.channels.cache.size+'`\n' +
                 'จำนวนผู้ใช้งาน: `'+users+'`\n' +
                 'เวลาทำงาน: `'+uptime[0]+' วัน '+uptime[1]+' ชั่วโมง '+uptime[2]+' นาที '+uptime[3]+' วินาที`')
-            .setFooter('เขียนด้วย discord.js • เวอร์ชั่น '+version)
+            .setFooter('เขียนด้วย discord.js • Build '+version)
     );
 };
