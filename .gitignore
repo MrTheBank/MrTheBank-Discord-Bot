@@ -8,3 +8,6 @@ tests/
 
 # Smth very secret
 .env
+
+# Test
+/commands/Test/
