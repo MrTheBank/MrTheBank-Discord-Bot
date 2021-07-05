@@ -21,6 +21,8 @@ async function grml(ctx, text) {
 }
 
 exports.run = async (client, message, args) => {
+    const prefix = client.prefixes.get(message.guild.id) || process.env.DISCORD_PREFIX;
+
     let arg = args.join(' ');
     if (!arg) {
         return message.channel.send(
@@ -28,7 +30,7 @@ exports.run = async (client, message, args) => {
                 .setColor('BLUE')
                 .setTitle('(MEME) กูรู้หมดแล้ว')
                 .setImage('https://i.imgur.com/hOElsQR.png')
-                .setDescription('วิธีใช้ `'+process.env.DISCORD_PREFIX+'grml ข้อความ`')
+                .setDescription('วิธีใช้ `'+prefix+'grml ข้อความ`')
         );
     } else {
         const canvas = Canvas.createCanvas(600, 451);

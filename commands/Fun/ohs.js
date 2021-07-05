@@ -25,6 +25,8 @@ function addText(ctx, text, x, y, maxWidth, lineHeight) {
 }
 
 exports.run = async (client, message, args) => {
+    const prefix = client.prefixes.get(message.guild.id) || process.env.DISCORD_PREFIX;
+
     let arg = args.join(' ').split('|');
     if (!arg.join()) {
         return message.channel.send(
@@ -32,7 +34,7 @@ exports.run = async (client, message, args) => {
                 .setColor('BLUE')
                 .setTitle('(MEME) Office Handshake')
                 .setImage('https://i.imgur.com/ZEutZEs.jpg')
-                .setDescription('วิธีใช้ `'+process.env.DISCORD_PREFIX+'ohs ข้อความที่ 1|ข้อความที่ 2`')
+                .setDescription('วิธีใช้ `'+prefix+'ohs ข้อความที่ 1|ข้อความที่ 2`')
         );
     }
 
@@ -58,7 +60,7 @@ exports.run = async (client, message, args) => {
             new MessageEmbed()
                 .setColor('RED')
                 .setTitle('รูปแบบคำสั่งผิดพลาด')
-                .setDescription('วิธีใช้ `'+process.env.DISCORD_PREFIX+'ohs ข้อความที่ 1|ข้อความที่ 2`')
+                .setDescription('วิธีใช้ `'+prefix+'ohs ข้อความที่ 1|ข้อความที่ 2`')
         );
     }
 }

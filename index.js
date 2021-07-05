@@ -6,6 +6,7 @@ const fs = require('fs');
 const client = new Discord.Client();
 
 client.commands = new Discord.Collection();
+client.prefixes = new Discord.Collection();
 
 fs.readdir('./events/', (err, files) => {
     if (err) return console.error(err);

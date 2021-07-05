@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
     const arg = args.join(' ');
 
-    const prefix = process.env.DISCORD_PREFIX;
+    const prefix = client.prefixes.get(message.guild.id) || process.env.DISCORD_PREFIX;
 
     if (!arg) {
         return message.channel.send(
@@ -15,6 +15,7 @@ exports.run = async (client, message, args) => {
                     { name: ':information_source: ทั่วไป', value: '`'+prefix+'help general`', inline: true },
                     { name: '<a:pepe_spin:860508557359317031> มีม', value: '`'+prefix+'help meme`', inline: true },
                     { name: '<a:popcat:860509614629322783> สัตว์', value: '`'+prefix+'help animal`', inline: true },
+                    { name: '<a:gear_spinning:861495263729025024> แอดมิน', value: '`'+prefix+'help admin`', inline: true },
                     { name: '<a:gameboy:860522412121522216> Discord Together', value: '`'+prefix+'help together`', inline: true },
                 )
                 .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
@@ -32,6 +33,7 @@ exports.run = async (client, message, args) => {
                     '`'+prefix+'botinfo` - แสดงข้อมูลของบอท\n' +
                     '`'+prefix+'discord` - แสดงลิงค์เข้า MrTheBank\'s Official Discord\n' +
                     '`'+prefix+'invite` - แสดงลิงค์เชิญบอทเข้าเซิฟเวอร์\n' +
+                    '`'+prefix+'prefix` - แสดง Prefix ของเซิฟเวอร์นี้\n' +
                     '`'+prefix+'together <ชนิด>` - เปิดห้อง Discord Together\n')
                 .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
                 .setTimestamp()
@@ -53,9 +55,19 @@ exports.run = async (client, message, args) => {
                 .setTitle('<a:popcat:860509614629322783> คำสั่งสัตว์')
                 .setColor('#6C00FF')
                 .setDescription('\u200B\n' +
-                    '`'+prefix+'cat` - สุ่มรูปแมว\n' +
-                    '`'+prefix+'dog <สายพันธ์ุ (ไม่จำเป็น)>` - สุ่มรูปสุนัข\n')
-                .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
+                    '`' + prefix + 'cat` - สุ่มรูปแมว\n' +
+                    '`' + prefix + 'dog <สายพันธ์ุ (ไม่จำเป็น)>` - สุ่มรูปสุนัข\n')
+                .setFooter(message.author.tag, message.author.displayAvatarURL({format: 'png', size: 32}))
+                .setTimestamp()
+        );
+    } else if (arg === 'admin') {
+        return message.channel.send(
+            new MessageEmbed()
+                .setTitle('<a:gear_spinning:861495263729025024> คำสั่งแอดมิน')
+                .setColor('#6C00FF')
+                .setDescription('\u200B\n' +
+                    '`' + prefix + 'setprefix <Prefix>` - ตั้งค่า Prefix ของเซิฟเวอร์\n')
+                .setFooter(message.author.tag, message.author.displayAvatarURL({format: 'png', size: 32}))
                 .setTimestamp()
         );
     } else if (arg === 'together') {

@@ -1,10 +1,12 @@
 module.exports = (client, message) => {
+    const prefix = client.prefixes.get(message.guild.id) || process.env.DISCORD_PREFIX;
+
     if (message.author.bot) return;
 
-    if (message.content.indexOf(process.env.DISCORD_PREFIX) !== 0) return;
+    if (message.content.indexOf(prefix) !== 0) return;
 
     const args = message.content
-        .slice(process.env.DISCORD_PREFIX.length)
+        .slice(prefix.length)
         .trim()
         .split(/ +/g);
     const command = args.shift().toLowerCase();

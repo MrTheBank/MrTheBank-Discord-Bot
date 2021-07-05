@@ -77,6 +77,55 @@ class Database {
             });
         });
     }
+
+    static prefixes() {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT guild_id, prefix FROM prefixes', function (err, results, fields) {
+                if (err) {
+                    console.log('[MySQL]: '+err);
+                }
+                resolve(results);
+            });
+        });
+    }
+
+    static set_prefix(guild_id, prefix) {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT 1 AS result FROM prefixes WHERE guild_id = ?', [guild_id], function (err, results, fields) {
+                if (err) {
+                    console.log('[MySQL]: ' + err);
+                }
+                let result = !!results.length;
+
+                if (result) {
+                    pool.query('UPDATE prefixes SET prefix = ? WHERE guild_id = ?', [prefix, guild_id], function (err) {
+                        if (err) {
+                            console.log('[MySQL]: ' + err);
+                        }
+                        resolve(true);
+                    });
+                } else {
+                    pool.query('INSERT INTO prefixes (guild_id, prefix) VALUES (?, ?)', [guild_id, prefix], function (err) {
+                        if (err) {
+                            console.log('[MySQL]: ' + err);
+                        }
+                        resolve(true);
+                    });
+                }
+            });
+        });
+    }
+
+    static default_prefix(guild_id) {
+        return new Promise((resolve, reject) => {
+            pool.query('DELETE FROM prefixes WHERE guild_id = ?', [guild_id], function (err) {
+                if (err) {
+                    console.log('[MySQL]: ' + err);
+                }
+                resolve(true);
+            });
+        });
+    }
 }
 
 module.exports = Database;

@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
     const together = ["youtube", "poker", "chess", "betrayal", "fishing"], together_name = {youtube:"YouTube Together",poker:"Poker",chess:"Chess",betrayal:"Betrayal",fishing:"Fishing"};
 
     const channel = message.member.voice.channel;
-    const prefix = process.env.DISCORD_PREFIX;
+    const prefix = client.prefixes.get(message.guild.id) || process.env.DISCORD_PREFIX;
 
     if (!args[0]) {
         return message.channel.send(
