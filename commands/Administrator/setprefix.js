@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const DB = require('../../utils/database.js');
 
 exports.run = async (client, message, args) => {
-    if (message.member.hasPermission('MANAGE_GUILD')) {
+    if (message.member.hasPermission('ADMINISTRATOR')) {
         const arg = args.join(' ');
         if (arg) {
             const length = arg.length;
@@ -45,7 +45,7 @@ exports.run = async (client, message, args) => {
         return message.channel.send(
             new MessageEmbed()
                 .setColor('#E00000')
-                .setDescription('ท่านไม่มีเพอมิชชั่น `MANAGE_GUILD`')
+                .setDescription('ท่านไม่มี Permission: `ADMINISTRATOR`')
         );
     }
 };
