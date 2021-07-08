@@ -67,7 +67,9 @@ exports.run = async (client, message, args) => {
                 .setTitle('<a:gear_spinning:861495263729025024> คำสั่งแอดมิน')
                 .setColor('#6C00FF')
                 .setDescription('\u200B\n' +
-                    '`' + prefix + 'setprefix <Prefix>` - ตั้งค่า Prefix ของเซิฟเวอร์\n')
+                    '`' + prefix + 'setprefix <Prefix>` - ตั้งค่า Prefix ของเซิฟเวอร์\n' +
+                    '`' + prefix + 'setwelcome` - ตั้งค่าข้อความต้อนรับของเซิฟเวอร์\n' +
+                    '`' + prefix + 'setleave` - ตั้งค่าข้อความลาก่อนของเซิฟเวอร์')
                 .setFooter(message.author.tag, message.author.displayAvatarURL({format: 'png', size: 32}))
                 .setTimestamp()
         );

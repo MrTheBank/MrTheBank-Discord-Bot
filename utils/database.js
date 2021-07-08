@@ -32,6 +32,7 @@ class Database {
         });
     }
 
+    // New guild or remove guild.
     static guild_check(g) {
         return new Promise((resolve, reject) => {
             pool.query('SELECT 1 AS result FROM guilds WHERE guild_id = ?', [g.id], function (err, results, fields) {
@@ -78,6 +79,7 @@ class Database {
         });
     }
 
+    // Prefix database
     static prefixes() {
         return new Promise((resolve, reject) => {
             pool.query('SELECT guild_id, prefix FROM prefixes', function (err, results, fields) {
@@ -119,6 +121,51 @@ class Database {
     static default_prefix(guild_id) {
         return new Promise((resolve, reject) => {
             pool.query('DELETE FROM prefixes WHERE guild_id = ?', [guild_id], function (err) {
+                if (err) {
+                    console.log('[MySQL]: ' + err);
+                }
+                resolve(true);
+            });
+        });
+    }
+
+    // Welcome message & leave message functions for database.
+    static guildMemberMSG_create(table, guild_id, channel_id, message) {
+        return new Promise((resolve, reject) => {
+            pool.query('INSERT INTO ?? (guild_id, channel_id, message) VALUES (?, ?, ?)', [table, guild_id, channel_id, message], function (err) {
+                if (err) {
+                    console.log('[MySQL]: ' + err);
+                }
+                resolve(true);
+            });
+        });
+    }
+
+    static guildMemberMSG_get(table, guild_id) {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT * FROM ?? WHERE guild_id = ?', [table, guild_id], function (err, results, fields) {
+                if (err) {
+                    console.log('[MySQL]: '+err);
+                }
+                resolve(results[0]);
+            });
+        });
+    }
+
+    static guildMemberMSG_remove(table, guild_id) {
+        return new Promise((resolve, reject) => {
+            pool.query('DELETE FROM ?? WHERE guild_id = ?', [table, guild_id], function (err) {
+                if (err) {
+                    console.log('[MySQL]: ' + err);
+                }
+                resolve(true);
+            });
+        });
+    }
+
+    static guildMemberMSG_edit(table, guild_id, column, context) {
+        return new Promise((resolve, reject) => {
+            pool.query('UPDATE ?? SET ?? = ? WHERE guild_id = ?', [table, column, context, guild_id], function (err) {
                 if (err) {
                     console.log('[MySQL]: ' + err);
                 }
