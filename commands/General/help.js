@@ -33,6 +33,7 @@ exports.run = async (client, message, args) => {
                     '`'+prefix+'botinfo` - แสดงข้อมูลของบอท\n' +
                     '`'+prefix+'discord` - แสดงลิงค์เข้า MrTheBank\'s Official Discord\n' +
                     '`'+prefix+'invite` - แสดงลิงค์เชิญบอทเข้าเซิฟเวอร์\n' +
+                    '`'+prefix+'ping` - แสดงความล่าช้า\n' +
                     '`'+prefix+'prefix` - แสดง Prefix ของเซิฟเวอร์นี้\n' +
                     '`'+prefix+'together <ชนิด>` - เปิดห้อง Discord Together\n')
                 .setFooter(message.author.tag, message.author.displayAvatarURL({format:'png',size:32}))
