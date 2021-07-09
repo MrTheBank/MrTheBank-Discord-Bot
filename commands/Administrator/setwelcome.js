@@ -47,7 +47,7 @@ exports.run = async (client, message, args) => {
                                 return message.channel.send(
                                     new MessageEmbed()
                                         .setColor('#00E000')
-                                        .setDescription('เปลี่ยนช่องข้อความยินดีต้อนรับเป็น ' + channel.toString() + ' สำเร็จ')
+                                        .setDescription('เปลี่ยนช่องข้อความต้อนรับเป็น ' + channel.toString() + ' สำเร็จ')
                                 );
                             });
                         } else {
@@ -95,7 +95,7 @@ exports.run = async (client, message, args) => {
                         return message.channel.send(
                             new MessageEmbed()
                                 .setColor('#00E000')
-                                .setDescription('เปลี่ยนข้อความยินดีต้อนรับสำเร็จ')
+                                .setDescription('เปลี่ยนข้อความต้อนรับสำเร็จ')
                         );
                     })
                 }).catch(async collected => {
@@ -112,10 +112,10 @@ exports.run = async (client, message, args) => {
             return message.channel.send(
                 new MessageEmbed()
                     .setColor('BLUE')
-                    .setTitle('ตั้งค่าข้อความยินดีต้อนรับ')
-                    .setDescription('`' + prefix + 'setwelcome edit channel` - เพื่อแก้ไขการส่งข้อความยินดีต้อนรับไปช่องอื่น\n' +
-                        '`' + prefix + 'setwelcome edit message` - เพื่อแก้ไขข้อความยินดีต้อนรับ\n' +
-                        '`' + prefix + 'setwelcome remove` - เพื่อลบการตั้งค่าการส่งข้อความยินดีต้อนรับ (จำเป็นต้องตั้งค่าใหม่ หากเปิดใช้งานอีกรอบ)')
+                    .setTitle('ตั้งค่าข้อความต้อนรับ')
+                    .setDescription('`' + prefix + 'setwelcome edit channel` - เพื่อแก้ไขการส่งข้อความต้อนรับไปช่องอื่น\n' +
+                        '`' + prefix + 'setwelcome edit message` - เพื่อแก้ไขข้อความต้อนรับ\n' +
+                        '`' + prefix + 'setwelcome remove` - เพื่อลบการตั้งค่าการส่งข้อความต้อนรับ (จำเป็นต้องตั้งค่าใหม่ หากเปิดใช้งานอีกรอบ)')
             )
         }
     } else {
@@ -182,7 +182,7 @@ exports.run = async (client, message, args) => {
                         return message.channel.send(
                             new MessageEmbed()
                                 .setColor('#00E000')
-                                .setDescription('ตั้งค่าข้อความยินดีต้อนรับสำเร็จ')
+                                .setDescription('ตั้งค่าข้อความต้อนรับสำเร็จ')
                         );
                     });
                 }).catch(async collected => {

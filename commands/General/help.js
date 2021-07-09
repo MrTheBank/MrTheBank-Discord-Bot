@@ -69,7 +69,7 @@ exports.run = async (client, message, args) => {
                 .setDescription('\u200B\n' +
                     '`' + prefix + 'setprefix <Prefix>` - ตั้งค่า Prefix ของเซิฟเวอร์\n' +
                     '`' + prefix + 'setwelcome` - ตั้งค่าข้อความต้อนรับของเซิฟเวอร์\n' +
-                    '`' + prefix + 'setleave` - ตั้งค่าข้อความลาก่อนของเซิฟเวอร์')
+                    '`' + prefix + 'setleave` - ตั้งค่าข้อความลาจากของเซิฟเวอร์')
                 .setFooter(message.author.tag, message.author.displayAvatarURL({format: 'png', size: 32}))
                 .setTimestamp()
         );

@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
                 return message.channel.send(
                     new MessageEmbed()
                         .setColor('#00E000')
-                        .setDescription('ลบการตั้งค่าการส่งข้อความลาก่อนเรียบร้อย')
+                        .setDescription('ลบการตั้งค่าการส่งข้อความลาจากเรียบร้อย')
                 );
             });
             // EDIT CHANNEL
@@ -47,7 +47,7 @@ exports.run = async (client, message, args) => {
                                 return message.channel.send(
                                     new MessageEmbed()
                                         .setColor('#00E000')
-                                        .setDescription('เปลี่ยนช่องข้อความลาก่อนเป็น ' + channel.toString() + ' สำเร็จ')
+                                        .setDescription('เปลี่ยนช่องข้อความลาจากเป็น ' + channel.toString() + ' สำเร็จ')
                                 );
                             });
                         } else {
@@ -95,7 +95,7 @@ exports.run = async (client, message, args) => {
                         return message.channel.send(
                             new MessageEmbed()
                                 .setColor('#00E000')
-                                .setDescription('เปลี่ยนข้อความลาก่อนสำเร็จ')
+                                .setDescription('เปลี่ยนข้อความลาจากสำเร็จ')
                         );
                     })
                 }).catch(async collected => {
@@ -112,10 +112,10 @@ exports.run = async (client, message, args) => {
             return message.channel.send(
                 new MessageEmbed()
                     .setColor('BLUE')
-                    .setTitle('ตั้งค่าข้อความลาก่อน')
-                    .setDescription('`' + prefix + 'setleave edit channel` - เพื่อแก้ไขการส่งข้อความลาก่อนไปช่องอื่น\n' +
-                        '`' + prefix + 'setleave edit message` - เพื่อแก้ไขข้อความลาก่อน\n' +
-                        '`' + prefix + 'setleave remove` - เพื่อลบการตั้งค่าการส่งข้อความลาก่อน (จำเป็นต้องตั้งค่าใหม่ หากเปิดใช้งานอีกรอบ)')
+                    .setTitle('ตั้งค่าข้อความลาจาก')
+                    .setDescription('`' + prefix + 'setleave edit channel` - เพื่อแก้ไขการส่งข้อความลาจากไปช่องอื่น\n' +
+                        '`' + prefix + 'setleave edit message` - เพื่อแก้ไขข้อความลาจาก\n' +
+                        '`' + prefix + 'setleave remove` - เพื่อลบการตั้งค่าการส่งข้อความลาจาก (จำเป็นต้องตั้งค่าใหม่ หากเปิดใช้งานอีกรอบ)')
             )
         }
     } else {
@@ -182,7 +182,7 @@ exports.run = async (client, message, args) => {
                         return message.channel.send(
                             new MessageEmbed()
                                 .setColor('#00E000')
-                                .setDescription('ตั้งค่าข้อความลาก่อนสำเร็จ')
+                                .setDescription('ตั้งค่าข้อความลาจากสำเร็จ')
                         );
                     });
                 }).catch(async collected => {

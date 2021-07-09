@@ -8,7 +8,7 @@ module.exports = async (client, member) => {
         return client.channels.cache.get(info['channel_id']).send(
             new MessageEmbed()
                 .setColor('#CC0000')
-                .setTitle('ลาก่อน '+member.user.tag)
+                .setTitle(member.user.tag+' ได้ออกจาก '+member.guild.name)
                 .setDescription(message)
                 .setThumbnail(member.user.displayAvatarURL({format:'png', size: 128}))
                 .setFooter(member.user.id)
