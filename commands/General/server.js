@@ -54,7 +54,6 @@ exports.run = async (client, message) => {
                     , inline: true },
                 { name: '**อีโมจิ**', value: guild.emojis.cache.size, inline: true },
                 { name: '**ช่องต้อนรับ**', value: guild.systemChannelID ? '<#'+guild.systemChannelID+'>' : 'ไม่มี', inline: true },
-                { name: '**ช่องไม่เคลื่อนไหว**', value: guild.afkChannelID ? '<#'+guild.afkChannelID+'>' : 'ไม่มี', inline: true },
                 { name: '**สร้างเมื่อ**', value: created}
             )
     );
