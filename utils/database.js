@@ -1,177 +1,109 @@
-const mysql = require('mysql');
-const pool = mysql.createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    connectionLimit: 100,
-})
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false}).catch(err => {
+    console.log('[MongoDB]: Connection Failed.')
+    console.log('[MongoDB]: '+err)
+    process.exit();
+});
+const db = mongoose.connection;
 
 class Database {
-    static db_connect() {
-        return new Promise((resolve, reject) => {
-            pool.getConnection(function (err, connection) {
-                if (err) {
-                    console.log('[MySQL]: Connection Failed.')
-                    console.log('[MySQL]: '+err)
-                    process.exit();
-                }
-                connection.release();
-                resolve(connection);
-            });
+    static async db_connect() {
+        return db.once('open', function () {
+            return true;
         });
     }
 
-    static db_disconnect() {
-        return new Promise((resolve, reject) => {
-            pool.end(function (err) {
-                if (err) {
-                    console.log('[MySQL]: '+err)
-                }
-            });
-        });
-    }
+    // New guild or removed guild.
+    static guildCreate(guild) {
+        const guildSchema = require('../utils/models/guild');
 
-    // New guild or remove guild.
-    static guild_check(g) {
-        return new Promise((resolve, reject) => {
-            pool.query('SELECT 1 AS result FROM guilds WHERE guild_id = ?', [g.id], function (err, results, fields) {
-                if (err) {
-                    console.log('[MySQL]: '+err);
-                }
-                if (results.length) {
-                    resolve(true);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
-    }
+        return guildSchema.findOne({ guild_id: guild.id }, async function (err, result) {
+            if (err) {
+                return false;
+            }
 
-    static guild_create(g, existed=false) {
-        return new Promise((resolve, reject) => {
-            if (existed) {
-                pool.query('UPDATE guilds SET status = 1 WHERE guild_id = ?', [g.id], function (err) {
-                    if (err) {
-                        console.log('[MySQL]: ' + err);
-                    }
-                    resolve(true);
-                });
+            if (result) {
+                await guildSchema.updateOne({ guild_id: guild.id }, { status: 'active' });
             } else {
-                pool.query('INSERT INTO guilds (guild_id, guild_owner) VALUES (?, ?)', [g.id, g.ownerID], function (err) {
-                    if (err) {
-                        console.log('[MySQL]: ' + err);
-                    }
-                    resolve(true);
+                await guildSchema.create({
+                    guild_id: guild.id,
+                    guild_owner: guild.ownerID
                 });
             }
+            return true;
         });
     }
 
-    static guild_delete(g) {
-        return new Promise((resolve, reject) => {
-            pool.query('UPDATE guilds SET status = 0 WHERE guild_id = ?', [g.id], function (err) {
-                if (err) {
-                    console.log('[MySQL]: '+err);
-                }
-                resolve(true);
-            });
+    static async guildDelete(guild) {
+        const guildSchema = require('../utils/models/guild');
+
+        await guildSchema.updateOne({ guild_id: guild.id }, { status: 'inactive' });
+        return true;
+    }
+
+    // Prefixes collection.
+    static async prefixes(guild_ids) {
+        const prefixSchema = require('../utils/models/prefix');
+        return await prefixSchema.find({guild_id: {$in: guild_ids}}, 'guild_id prefix').exec();
+    }
+
+    static async set_prefix(guild_id, prefix) {
+        const prefixSchema = require('../utils/models/prefix');
+
+        return prefixSchema.findOne({ guild_id: guild_id }, async function (err, result) {
+            if (err) {
+                return false;
+            }
+
+            if (result) {
+                await prefixSchema.updateOne({ guild_id: guild_id }, { prefix: prefix })
+            } else {
+                await prefixSchema.create({
+                    guild_id: guild_id,
+                    prefix: prefix
+                });
+            }
+            return true;
         });
     }
 
-    // Prefix database
-    static prefixes() {
-        return new Promise((resolve, reject) => {
-            pool.query('SELECT guild_id, prefix FROM prefixes', function (err, results, fields) {
-                if (err) {
-                    console.log('[MySQL]: '+err);
-                }
-                resolve(results);
-            });
-        });
+    static async default_prefix(guild_id) {
+        const prefixSchema = require('../utils/models/prefix');
+
+        await prefixSchema.deleteOne({ guild_id: guild_id });
+        return true;
     }
 
-    static set_prefix(guild_id, prefix) {
-        return new Promise((resolve, reject) => {
-            pool.query('SELECT 1 AS result FROM prefixes WHERE guild_id = ?', [guild_id], function (err, results, fields) {
-                if (err) {
-                    console.log('[MySQL]: ' + err);
-                }
-                let result = !!results.length;
+    // Welcome message & leave message collections.
+    static async guildMemberMSG_create(model, guild_id, channel_id, message) {
+        const msgSchema = require('../utils/models/'+model);
 
-                if (result) {
-                    pool.query('UPDATE prefixes SET prefix = ? WHERE guild_id = ?', [prefix, guild_id], function (err) {
-                        if (err) {
-                            console.log('[MySQL]: ' + err);
-                        }
-                        resolve(true);
-                    });
-                } else {
-                    pool.query('INSERT INTO prefixes (guild_id, prefix) VALUES (?, ?)', [guild_id, prefix], function (err) {
-                        if (err) {
-                            console.log('[MySQL]: ' + err);
-                        }
-                        resolve(true);
-                    });
-                }
-            });
+        await msgSchema.create({
+            guild_id: guild_id,
+            channel_id: channel_id,
+            message: message
         });
+        return true;
     }
 
-    static default_prefix(guild_id) {
-        return new Promise((resolve, reject) => {
-            pool.query('DELETE FROM prefixes WHERE guild_id = ?', [guild_id], function (err) {
-                if (err) {
-                    console.log('[MySQL]: ' + err);
-                }
-                resolve(true);
-            });
-        });
+    static async guildMemberMSG_get(model, guild_id) {
+        const msgSchema = require('../utils/models/'+model);
+
+        return await msgSchema.findOne({ guild_id: guild_id }).exec();
     }
 
-    // Welcome message & leave message functions for database.
-    static guildMemberMSG_create(table, guild_id, channel_id, message) {
-        return new Promise((resolve, reject) => {
-            pool.query('INSERT INTO ?? (guild_id, channel_id, message) VALUES (?, ?, ?)', [table, guild_id, channel_id, message], function (err) {
-                if (err) {
-                    console.log('[MySQL]: ' + err);
-                }
-                resolve(true);
-            });
-        });
+    static async guildMemberMSG_remove(model, guild_id) {
+        const msgSchema = require('../utils/models/'+model);
+
+        await msgSchema.deleteOne({ guild_id: guild_id });
+        return true;
     }
 
-    static guildMemberMSG_get(table, guild_id) {
-        return new Promise((resolve, reject) => {
-            pool.query('SELECT * FROM ?? WHERE guild_id = ?', [table, guild_id], function (err, results, fields) {
-                if (err) {
-                    console.log('[MySQL]: '+err);
-                }
-                resolve(results[0]);
-            });
-        });
-    }
+    static async guildMemberMSG_edit(model, guild_id, field, context) {
+        const msgSchema = require('../utils/models/'+model);
 
-    static guildMemberMSG_remove(table, guild_id) {
-        return new Promise((resolve, reject) => {
-            pool.query('DELETE FROM ?? WHERE guild_id = ?', [table, guild_id], function (err) {
-                if (err) {
-                    console.log('[MySQL]: ' + err);
-                }
-                resolve(true);
-            });
-        });
-    }
-
-    static guildMemberMSG_edit(table, guild_id, column, context) {
-        return new Promise((resolve, reject) => {
-            pool.query('UPDATE ?? SET ?? = ? WHERE guild_id = ?', [table, column, context, guild_id], function (err) {
-                if (err) {
-                    console.log('[MySQL]: ' + err);
-                }
-                resolve(true);
-            });
-        });
+        await msgSchema.updateOne({ guild_id: guild_id }, { [field]: context });
+        return true;
     }
 }
 

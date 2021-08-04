@@ -2,7 +2,7 @@ const { MessageAttachment, MessageEmbed } = require('discord.js');
 const Canvas = require('canvas');
 const wc = require('wordcut');
 
-Canvas.registerFont('./fonts/Trirong.ttf', { family: 'Trirong' });
+Canvas.registerFont('./templates/fonts/Trirong.ttf', { family: 'Trirong' });
 wc.init();
 
 function addText(ctx, text, x, y, maxWidth, lineHeight) {

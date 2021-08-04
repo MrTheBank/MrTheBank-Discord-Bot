@@ -1,7 +1,7 @@
 const { MessageAttachment, MessageEmbed } = require('discord.js');
 const Canvas = require('canvas');
 
-Canvas.registerFont('./fonts/sukhumvitb.ttf', { family: 'Sukhumvit' });
+Canvas.registerFont('./templates/fonts/sukhumvitb.ttf', { family: 'Sukhumvit' });
 
 async function grml(ctx, text) {
     let maxWidth = 410;

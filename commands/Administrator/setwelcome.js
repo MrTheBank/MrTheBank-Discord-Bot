@@ -15,11 +15,11 @@ exports.run = async (client, message, args) => {
         );
     }
 
-    const info = await DB.guildMemberMSG_get('welcome_msgs', message.guild.id);
+    const info = await DB.guildMemberMSG_get('welcome_msg', message.guild.id);
 
     if (info) {
         if (args[0] === 'remove') {
-            DB.guildMemberMSG_remove('welcome_msgs', message.guild.id).then(() => {
+            DB.guildMemberMSG_remove('welcome_msg', message.guild.id).then(() => {
                 return message.channel.send(
                     new MessageEmbed()
                         .setColor('#00E000')
@@ -43,7 +43,7 @@ exports.run = async (client, message, args) => {
                     let channel = message.mentions.channels.first();
                     if (channel) {
                         if (message.guild.me.permissionsIn(channel.id).has('SEND_MESSAGES') && message.guild.me.permissionsIn(channel.id).has('VIEW_CHANNEL')) {
-                            DB.guildMemberMSG_edit('welcome_msgs', message.guild.id, 'channel_id', channel.id).then(() => {
+                            DB.guildMemberMSG_edit('welcome_msg', message.guild.id, 'channel_id', channel.id).then(() => {
                                 return message.channel.send(
                                     new MessageEmbed()
                                         .setColor('#00E000')
@@ -91,7 +91,7 @@ exports.run = async (client, message, args) => {
                     errors: ['time']
                 }).then(async message => {
                     message = message.first();
-                    DB.guildMemberMSG_edit('welcome_msgs', message.guild.id, 'message', message.content).then(() => {
+                    DB.guildMemberMSG_edit('welcome_msg', message.guild.id, 'message', message.content).then(() => {
                         return message.channel.send(
                             new MessageEmbed()
                                 .setColor('#00E000')
@@ -178,7 +178,7 @@ exports.run = async (client, message, args) => {
                     errors: ['time']
                 }).then(async message => {
                     message = message.first();
-                    DB.guildMemberMSG_create('welcome_msgs', message.guild.id, results[1].id, message.content).then(() => {
+                    DB.guildMemberMSG_create('welcome_msg', message.guild.id, results[1].id, message.content).then(() => {
                         return message.channel.send(
                             new MessageEmbed()
                                 .setColor('#00E000')
