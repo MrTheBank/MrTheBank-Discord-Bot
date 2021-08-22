@@ -36,7 +36,7 @@ exports.run = async (client, message, args) => {
             ).then(async () => {
                 await message.channel.awaitMessages(filter, {
                     max: 1,
-                    time: 30000,
+                    time: 60000,
                     errors: ['time']
                 }).then(async message => {
                     message = message.first();
@@ -87,7 +87,7 @@ exports.run = async (client, message, args) => {
             ).then(async () => {
                 await message.channel.awaitMessages(filter, {
                     max: 1,
-                    time: 30000,
+                    time: 60000,
                     errors: ['time']
                 }).then(async message => {
                     message = message.first();
@@ -128,7 +128,7 @@ exports.run = async (client, message, args) => {
             let result, channel;
             await message.channel.awaitMessages(filter, {
                 max: 1,
-                time: 30000,
+                time: 60000,
                 errors: ['time']
             }).then(async message => {
                 message = message.first();
@@ -174,7 +174,7 @@ exports.run = async (client, message, args) => {
             if (results[0]) {
                 await message.channel.awaitMessages(filter, {
                     max: 1,
-                    time: 30000,
+                    time: 60000,
                     errors: ['time']
                 }).then(async message => {
                     message = message.first();

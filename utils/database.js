@@ -2,13 +2,19 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false}).catch(err => {
     console.log('[MongoDB]: Connection Failed.')
     console.log('[MongoDB]: '+err)
-    process.exit();
+    process.exit(0);
 });
-const db = mongoose.connection;
+
+process.on('SIGINT', function() {
+    mongoose.connection.close(function () {
+        console.log('[MongoDB]: Connection Closed.');
+        process.exit(0);
+    });
+});
 
 class Database {
     static async db_connect() {
-        return db.once('open', function () {
+        return mongoose.connection.once('open', function () {
             return true;
         });
     }
