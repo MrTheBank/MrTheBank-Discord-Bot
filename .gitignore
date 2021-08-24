@@ -1,0 +1,9 @@
+# Package
+node_modules/
+
+# Miscellaneous
+.idea/
+config/slash-commands.js
+
+# Secret Environment Variables
+.env
