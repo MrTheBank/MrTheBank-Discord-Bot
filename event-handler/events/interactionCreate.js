@@ -9,7 +9,7 @@ module.exports = async (client, interaction) => {
     if (!commandCheck) return;
 
     // Execute the command
-    const ctx = new Ctx({interaction: interaction}, 'interaction');
+    const ctx = new Ctx({client: client, interaction: interaction}, 'interaction');
 
     await interactionHandler.runCommand(ctx);
 }

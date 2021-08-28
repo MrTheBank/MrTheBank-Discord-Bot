@@ -1,15 +1,16 @@
 module.exports = class Ctx {
     constructor(context = {}, type='') {
         this.type = type;
+        this.client = context.client;
 
         if (type === 'message') {
-            this.message = context.message;
+            this.action = context.message;
             this.command = context.command;
             this.args = context.args
         }
 
         if (type === 'interaction') {
-            this.interaction = context.interaction;
+            this.action = context.interaction;
             this.commandName = context.interaction.commandName;
             this.options = context.interaction.options;
         }
@@ -17,17 +18,33 @@ module.exports = class Ctx {
 
     async sendMSG(content, ephemeral = false , options = {}) {
         if (this.type === 'interaction') {
-            await this.interaction.reply(content);
+            return this.action.reply(content).then(() => {return this.action.fetchReply()});
         } else {
-            await this.message.channel.send(content, options);
+            return this.action.channel.send(content, options).then(result => {return result});
         }
     }
 
     async sendEmbed(embed, ephemeral = false, options = {}) {
         if (this.type === 'interaction') {
-            await this.interaction.reply({content: ' ', ephemeral: ephemeral, embeds: [embed]});
+            await this.action.reply({content: ' ', ephemeral: ephemeral, embeds: [embed]});
         } else {
-            await this.message.channel.send({content: ' ', embeds: [embed]}, options);
+            return this.action.channel.send({embeds: [embed]}, options).then(result => {return result});
+        }
+    }
+
+    async sendFiles(files = [], ephemeral = false, options = {}) {
+        if (this.type === 'interaction') {
+            await this.action.reply({files: files});
+        } else {
+            await this.action.channel.send({files: files});
+        }
+    }
+
+    async editEmbed(embed, ephemeral = false, options = {}, msg = {}) {
+        if (this.type === 'interaction') {
+            await this.action.editReply({content: ' ', ephemeral: ephemeral, embeds: [embed]});
+        } else {
+            await msg.edit({content: ' ', embeds: [embed]}, options);
         }
     }
 }

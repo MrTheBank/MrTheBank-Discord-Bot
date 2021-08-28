@@ -1,9 +1,14 @@
 # Package
 node_modules/
+yarn.lock
 
 # Miscellaneous
 .idea/
-config/slash-commands.js
+config/deploy-commands.js
 
 # Secret Environment Variables
 .env
+
+# Test
+tests/
+commands/Test/

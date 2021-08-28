@@ -4,7 +4,7 @@ const Ctx = require('../../commands-handler/Ctx');
 
 module.exports = async (client, message) => {
     // Prefix
-    const prefix = configBot.prefix;
+    const prefix = client.prefixes.get(message.guild.id) || configBot.prefix;
 
     // Don't listen to bot messages
     if (message.author.bot) return;
@@ -19,7 +19,7 @@ module.exports = async (client, message) => {
     const {command, args} = commandCheck;
 
     // Execute the command
-    const ctx = new Ctx({message: message, command: command.name, args: args}, 'message');
+    const ctx = new Ctx({client: client, message: message, command: command.name, args: args}, 'message');
 
     await commandHandler.runCommand(ctx);
 }
