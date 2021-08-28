@@ -1,0 +1,12 @@
+// Please rename deploy-commands.js.example to deploy-commands.js before run 'npm run deploy-commands'
+
+module.exports = {
+    // Discord token from https://discord.com/developers/applications
+    token: '',
+
+    // Bot application client ID.
+    client_id: '',
+
+    // Development guild (not necessary, for development).
+    guild_id: ''
+}

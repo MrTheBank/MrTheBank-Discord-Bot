@@ -1,13 +1,15 @@
-# Packages
+# Package
 node_modules/
+package-lock.json
 yarn.lock
 
 # Miscellaneous
 .idea/
-tests/
+config/deploy-commands.js
 
-# Smth very secret
+# Secret Environment Variables
 .env
 
 # Test
-/commands/Test/
+tests/
+commands/Test/
