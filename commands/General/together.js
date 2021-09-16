@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const DiscordTogether = require('../../../utils/discord-together');
+const DiscordTogether = require('../../utils/discord-together');
 
 module.exports = {
     name: 'together',
