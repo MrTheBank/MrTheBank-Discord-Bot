@@ -1,13 +1,13 @@
-FROM node:16.9.1-slim
-
-RUN apt-get update && apt-get install -y build-essential python
-
-RUN mkdir -p /usr/src/bot
+FROM node:16.9.1-alpine as builder
 WORKDIR /usr/src/bot
-
-COPY package.json /usr/src/bot
+RUN apk add python3 make g++ cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
+ADD package.json package-lock.json ./
 RUN npm install --only=production
 
-COPY . /usr/src/bot
+FROM node:16.9.1-alpine
+RUN apk add cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
+WORKDIR /usr/src/bot
+COPY . ./
+COPY --from=builder ./usr/src/bot/node_modules ./node_modules
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
