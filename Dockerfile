@@ -1,7 +1,7 @@
 FROM node:16.9.1-alpine as builder
 WORKDIR /usr/src/bot
 RUN apk add python3 make g++ cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
-ADD package.json package-lock.json ./
+ADD package.json ./
 RUN npm install --only=production
 
 FROM node:16.9.1-alpine
