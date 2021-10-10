@@ -3,12 +3,14 @@ const { registerCommands } = require('../commands-handler/command-handler');
 const { registerInteractions } = require('../commands-handler/interaction-handler');
 const { registerPrefixes } = require('../commands-handler/prefix-handler');
 const { initDatabase } = require('../database/mongoose-handler');
+const { registerMusic } = require('../commands-handler/music-handler');
 
 module.exports = {
     init(client, timestamp) {
         registerCommands();
         registerInteractions();
         initDatabase();
+        registerMusic(client);
 
         this.initEvents(client);
         this.initEssentialEvents(client, timestamp);

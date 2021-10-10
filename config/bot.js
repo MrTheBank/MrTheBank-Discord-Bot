@@ -11,5 +11,12 @@ module.exports = {
     prefix: '+',
 
     // New guild or removed guild event and send event log to text channel.
-    guild_events_channel_id: '859356478582030357'
+    guild_events_channel_id: '859356478582030357',
+
+    // Music
+    // When queue is end, how long do you want bot to stay. (seconds)
+    leave_on_end: 300,
+
+    // When there is no one in room, how long do you want bot in stay. (seconds)
+    leave_on_empty: 300,
 }
