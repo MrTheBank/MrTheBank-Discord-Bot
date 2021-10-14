@@ -24,7 +24,6 @@
     "discord-player": "^5.1.0-dev.1632226006.ad9212c",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "ffmpeg-static": "^4.4.0",
     "libsodium-wrappers": "^0.7.9",
     "mongoose": "^5.13.5",
     "mongoose-sequence": "^5.3.1",
