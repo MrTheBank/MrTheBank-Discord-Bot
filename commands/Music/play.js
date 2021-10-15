@@ -41,6 +41,8 @@ module.exports = {
             );
         }
 
+        if (ctx.type === 'interaction') ctx.action.deferReply();
+
         const res = await ctx.client.player.search(arg, {
                 requestedBy: ctx.action.member,
                 searchEngine: QueryType.AUTO
@@ -49,7 +51,7 @@ module.exports = {
         if (!res || !res.tracks.length) return ctx.sendEmbed(new MessageEmbed()
             .setColor('#E00000')
             .setDescription('ไม่พบเพลงที่ท่านต้องการหา')
-        );
+        , true);
 
         const queue = await ctx.client.player.createQueue(ctx.action.guild, {
             metadata: ctx.action.channel,
@@ -72,7 +74,7 @@ module.exports = {
             return ctx.sendEmbed(new MessageEmbed()
                 .setColor('#E00000')
                 .setDescription('ไม่สามารถเข้าห้องที่ท่านอยู่ กรุณาลองใหม่')
-            );
+            , true);
         }
 
         if (res.playlist) {
@@ -80,13 +82,13 @@ module.exports = {
             await ctx.sendEmbed(new MessageEmbed()
                 .setColor('#0099ff')
                 .setDescription('เพิ่มเพลงจาก [Playlist]('+ res.playlist.url +') จำนวน **'+ res.tracks.length +'** เพลงเข้าคิว')
-            );
+            , true);
         } else {
             queue.addTrack(res.tracks[0]);
             await ctx.sendEmbed(new MessageEmbed()
                 .setColor('#0099ff')
                 .setDescription('เพิ่มเพลงเข้าคิว: ['+ res.tracks[0].title +']('+ res.tracks[0].url +')')
-            );
+            , true);
         }
 
         if (!queue.playing) await queue.play();

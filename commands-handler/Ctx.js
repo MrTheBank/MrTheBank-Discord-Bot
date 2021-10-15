@@ -16,17 +16,22 @@ module.exports = class Ctx {
         }
     }
 
-    async sendMSG(content, ephemeral = false , options = {}) {
+    async sendMSG(content, defer = false, ephemeral = false , options = {}) {
         if (this.type === 'interaction') {
-            return this.action.reply(content).then(() => {return this.action.fetchReply()});
+            if (defer) {
+                return this.action.editReply(content).then(() => {return this.action.fetchReply()});
+            } else {
+                return this.action.reply(content).then(() => {return this.action.fetchReply()});
+            }
         } else {
             return this.action.channel.send(content, options).then(result => {return result});
         }
     }
 
-    async sendEmbed(embed, ephemeral = false, options = {}) {
+    async sendEmbed(embed, defer = false, ephemeral = false, options = {}) {
         if (this.type === 'interaction') {
-            await this.action.reply({content: ' ', ephemeral: ephemeral, embeds: [embed]});
+            let context = {content: ' ', ephemeral: ephemeral, embeds: [embed]};
+            if (defer) await this.action.editReply(context); else await this.action.reply(context);
         } else {
             return this.action.channel.send({embeds: [embed]}, options).then(result => {return result});
         }

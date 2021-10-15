@@ -24,6 +24,7 @@ module.exports = {
             option.setName('category')
                 .setDescription('Category')
                 .addChoice('General', 'general')
+                .addChoice('Music', 'music')
                 .addChoice('Meme', 'meme')
                 .addChoice('Animal', 'animal')
                 .addChoice('Admin', 'admin')
