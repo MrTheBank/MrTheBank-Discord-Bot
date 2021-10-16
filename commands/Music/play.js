@@ -9,7 +9,7 @@ module.exports = {
 
     interaction: new SlashCommandBuilder()
         .setName('play')
-        .setDescription('เปิดเพลงจาก YouTube หรือ Soundcloud')
+        .setDescription('เปิดเพลงจาก YouTube, Spotify หรือ Soundcloud')
         .addStringOption(option => option.setName('query').setDescription('ชื่อเพลงหรือลิงค์เพลง').setRequired(true))
     ,
 
@@ -34,12 +34,13 @@ module.exports = {
                 .setColor('#E00000')
                 .setDescription('กรุณาป้อนค่าชื่อเพลงหรือลิงค์เพลงที่ท่านต้องการหา')
             );
-        } else if (arg.includes('spotify.com')) {
-            return ctx.sendEmbed(new MessageEmbed()
-                .setColor('#E00000')
-                .setDescription('ขออภัย ขณะนี้ยังไม่รับรอง Spotify')
-            );
         }
+        // } else if (arg.includes('spotify.com')) {
+        //     return ctx.sendEmbed(new MessageEmbed()
+        //         .setColor('#E00000')
+        //         .setDescription('ขออภัย ขณะนี้ยังไม่รับรอง Spotify')
+        //     );
+        // }
 
         if (ctx.type === 'interaction') ctx.action.deferReply();
 
@@ -62,6 +63,17 @@ module.exports = {
         if (!queue.createStream) {
             queue.createStream = async (track, source, _queue) => {
                 if (source === "youtube") {
+                    if (playdl.sp_validate(track.url)) {
+                        if (playdl.is_expired()) {
+                            await playdl.refreshToken();
+                        }
+                        let spotifyInfo = await playdl.spotify(track.url);
+                        let youtube = await playdl.search(`${spotifyInfo.name}`, {
+                            limit: 1,
+                        });
+                        return (await playdl.stream(youtube[0].url)).stream;
+                    }
+
                     return (await playdl.stream(track.url)).stream;
                 }
             };
