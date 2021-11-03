@@ -29,7 +29,7 @@ module.exports = {
             .on('trackAdd', (queue, track) => {
                 endTimeout.clearTimeout(queue);
             })
-            .on('trackAdd', (queue, track) => {
+            .on('tracksAdd', (queue, track) => {
                 endTimeout.clearTimeout(queue);
             })
             .on('channelEmpty', (queue => {
