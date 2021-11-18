@@ -35,14 +35,8 @@ module.exports = {
                 .setDescription('กรุณาป้อนค่าชื่อเพลงหรือลิงค์เพลงที่ท่านต้องการหา')
             );
         }
-        // } else if (arg.includes('spotify.com')) {
-        //     return ctx.sendEmbed(new MessageEmbed()
-        //         .setColor('#E00000')
-        //         .setDescription('ขออภัย ขณะนี้ยังไม่รับรอง Spotify')
-        //     );
-        // }
 
-        if (ctx.type === 'interaction') ctx.action.deferReply();
+        if (ctx.type === 'interaction') await ctx.action.deferReply();
 
         const res = await ctx.client.player.search(arg, {
                 requestedBy: ctx.action.member,
