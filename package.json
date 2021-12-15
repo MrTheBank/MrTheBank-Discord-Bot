@@ -21,7 +21,7 @@
     "axios": "^0.21.1",
     "canvas": "^2.8.0",
     "discord-api-types": "^0.22.0",
-    "discord-player": "^5.1.0-dev.1632226006.ad9212c",
+    "discord-player": "^5.2.0",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "libsodium-wrappers": "^0.7.9",
@@ -29,7 +29,7 @@
     "mongoose-sequence": "^5.3.1",
     "node-fetch": "^2.6.1",
     "opusscript": "^0.0.8",
-    "play-dl": "^1.0.9",
+    "play-dl": "^1.5.7",
     "time-convert": "^0.0.2",
     "wordcut": "^0.9.1",
     "ytdl-core": "^4.9.1"
