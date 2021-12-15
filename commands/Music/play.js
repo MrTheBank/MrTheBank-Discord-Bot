@@ -52,31 +52,48 @@ module.exports = {
             metadata: ctx.action.channel,
             leaveOnEnd: false,
             leaveOnEmptyCooldown: leave_on_empty * 1000,
-        });
+            bufferingTimeout: 200,
+            spotifyBridge: true,
+            async onBeforeCreateStream(track, source, _queue) {
+                if (source === "soundcloud") {
+                    const client_id = await playdl.getFreeClientID();
+                    playdl.setToken({
+                        soundcloud: {
+                            client_id: client_id,
+                        },
+                    });
+                    if (await playdl.so_validate(track.url)) {
+                        let soundCloudInfo = await playdl.soundcloud(track.url);
+                        return (
+                            await playdl.stream_from_info(soundCloudInfo, { quality: 1 })
+                        ).stream;
+                    }
+                    return;
+                }
 
-        if (!queue.createStream) {
-            queue.createStream = async (track, source, _queue) => {
                 if (source === "youtube") {
-                    if (playdl.sp_validate(track.url)) {
+                    const validateSP = playdl.sp_validate(track.url);
+                    const spotifyList = ["track", "album", "playlist"];
+                    if (spotifyList.includes(validateSP)) {
                         if (playdl.is_expired()) {
                             await playdl.refreshToken();
                         }
                         let spotifyInfo = await playdl.spotify(track.url);
                         let youtube = await playdl.search(`${spotifyInfo.name}`, {
-                            limit: 1,
+                            limit: 2,
                         });
-                        return (await playdl.stream(youtube[0].url)).stream;
+                        return (await playdl.stream(youtube[0].url, { quality: 1 })).stream;
                     }
 
-                    return (await playdl.stream(track.url)).stream;
+                    return (await playdl.stream(track.url, { quality: 1 })).stream;
                 }
-            };
-        }
+            }
+        });
 
         try {
             if (!queue.connection) await queue.connect(ctx.action.member.voice.channel);
         } catch {
-            await ctx.client.player.deleteQueue(ctx.action.member.voice.channel.guild.id);
+            await ctx.client.player?.deleteQueue(ctx.action.member.voice.channel.guild.id);
             return ctx.sendEmbed(new MessageEmbed()
                 .setColor('#E00000')
                 .setDescription('ไม่สามารถเข้าห้องที่ท่านอยู่ กรุณาลองใหม่')
