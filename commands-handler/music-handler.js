@@ -41,9 +41,13 @@ module.exports = {
             .on('botDisconnect', (queue => {
                 endTimeout.clearTimeout(queue);
             }))
-            .on("error", (queue, error) => {
+            .on('error', (queue, error) => {
                 console.log(`Error at ${queue.guild.id} | ${error.message}`);
             })
+            // .on('debug', (queue, string) => {
+            //     //console.log(queue);
+            //     console.log(string);
+            // })
         ;
     }
 }
