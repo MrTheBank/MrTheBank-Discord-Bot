@@ -94,6 +94,7 @@ module.exports = {
             if (!queue.connection) await queue.connect(ctx.action.member.voice.channel);
         } catch {
             await ctx.client.player?.deleteQueue(ctx.action.member.voice.channel.guild.id);
+            queue.destroy(true);
             return ctx.sendEmbed(new MessageEmbed()
                 .setColor('#E00000')
                 .setDescription('ไม่สามารถเข้าห้องที่ท่านอยู่ กรุณาลองใหม่')

@@ -9,6 +9,7 @@ module.exports = class EndTimeout {
     setTimeout(queue) {
         let timeout = setTimeout(async () => {
             queue.connection.disconnect();
+            queue.destroy(true);
             await queue.metadata.send({embeds: [new MessageEmbed()
                     .setColor('#ffff66')
                     .setDescription('เนื่องจากไม่มีความเคลื่อนไหว บอทจึงออกจากห้อง')]
