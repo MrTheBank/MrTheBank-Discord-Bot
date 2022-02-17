@@ -64,9 +64,7 @@ module.exports = {
                     });
                     if (await playdl.so_validate(track.url)) {
                         let soundCloudInfo = await playdl.soundcloud(track.url);
-                        return (
-                            await playdl.stream_from_info(soundCloudInfo, { quality: 1 })
-                        ).stream;
+                        return (await playdl.stream_from_info(soundCloudInfo)).stream;
                     }
                     return;
                 }
@@ -82,10 +80,20 @@ module.exports = {
                         let youtube = await playdl.search(`${spotifyInfo.name}`, {
                             limit: 2,
                         });
-                        return (await playdl.stream(youtube[0].url, { quality: 1 })).stream;
+                        return (
+                            await playdl.stream(youtube[0].url, {
+                                discordPlayerCompatibility: true,
+                                quality: 1,
+                            })
+                        ).stream;
                     }
 
-                    return (await playdl.stream(track.url, { quality: 1 })).stream;
+                    return (
+                        await playdl.stream(track.url, {
+                            discordPlayerCompatibility: true,
+                            quality: 1,
+                        })
+                    ).stream;
                 }
             }
         });

@@ -15,8 +15,8 @@ module.exports = {
 
     // Music
     // When queue is end, how long do you want bot to stay. (seconds)
-    leave_on_end: 300,
+    leave_on_end: 5,
 
     // When there is no one in room, how long do you want bot in stay. (seconds)
-    leave_on_empty: 300,
+    leave_on_empty: 5,
 }

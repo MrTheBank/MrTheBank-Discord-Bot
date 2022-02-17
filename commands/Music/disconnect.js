@@ -24,7 +24,7 @@ module.exports = {
                 .setDescription('ไม่มีเพลงเล่น ณ เวลานี้')
             );
         } else {
-            queue.destroy();
+            queue.destroy(true);
             await ctx.sendEmbed(new MessageEmbed()
                 .setColor('#0099ff')
                 .setDescription('บอทได้หยุดเพลงและออกจากห้องพูดคุยเรียบร้อย')
