@@ -16,6 +16,14 @@ module.exports = {
                 .addChoice('Chess in the Park', 'chess')
                 .addChoice('Betrayal.io', 'betrayal')
                 .addChoice('Fishington.io', 'fishing')
+                .addChoice('Letter Tile', 'lettertile')
+                .addChoice('Words Snack', 'wordsnack')
+                .addChoice('Doodle Crew', 'doodlecrew')
+                .addChoice('SpellCast', 'spellcast')
+                .addChoice('Awkword', 'awkword')
+                .addChoice('Puttparty', 'puttparty')
+                .addChoice('Sketchheads', 'sketchheads')
+                .addChoice('Ocho', 'ocho')
                 .setRequired(true)
         )
     ,
@@ -27,7 +35,21 @@ module.exports = {
      */
 
     async run(ctx) {
-        const together = {youtube:"YouTube Together", poker:"Poker Night", chess:"Chess in the Park", betrayal:"Betrayal.io", fishing:"Fishington.io"};
+        const together = {
+            youtube:"YouTube Together",
+            poker:"Poker Night",
+            chess:"Chess in the Park",
+            betrayal:"Betrayal.io",
+            fishing:"Fishington.io",
+            lettertile:"Letter Tile",
+            wordsnack:"Words Snack",
+            doodlecrew:"Doodle Crew",
+            spellcast:"SpellCast",
+            awkword:"Awkword",
+            puttparty:"Puttparty",
+            sketchheads:"Sketchheads",
+            ocho:"Ocho"
+        };
 
         if (!ctx.action.member.voice.channel) return ctx.sendEmbed(new MessageEmbed()
             .setColor('#E00000')
