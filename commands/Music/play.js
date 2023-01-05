@@ -70,6 +70,14 @@ module.exports = {
                 }
 
                 if (source === "youtube") {
+                    await playdl.setToken({
+                        spotify : {
+                            client_id: process.env.SPTF_CLIENT_ID,
+                            client_secret: process.env.SPTF_CLIENT_SECRET,
+                            refresh_token: process.env.SPTF_REFRESH_TOKEN,
+                            market: process.env.SPTF_MARKET
+                        }
+                    });
                     const validateSP = playdl.sp_validate(track.url);
                     const spotifyList = ["track", "album", "playlist"];
                     if (spotifyList.includes(validateSP)) {
